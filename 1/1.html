@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <main>
+        <div class="my-4">
+          <button
+            class="add bg-success text-white border-0 p-2 rounded"
+            onclick="appendRow()"
+          >
+            Add Row
+          </button>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr class="bg-success text-white">
+              <th scope="col">Action</th>
+              <th scope="col">Numbers</th>
+              <th scope="col">Type</th>
+              <th scope="col">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="rows">
+              <td style="width: 20%">
+                <button
+                  id="delete"
+                  class="px-4 py-2 me-2 bg-danger text-white border-0 rounded"
+                >
+                  Delete
+                </button>
+                <button
+                  id="clone"
+                  class="px-4 py-2 bg-primary text-white border-0 rounded"
+                >
+                  Clone
+                </button>
+              </td>
+              <td style="width: 20%"><input id="in-1" type="text" /></td>
+              <td style="width: 20%"><input id="in-2" type="text" /></td>
+              <td id="in-3" style="width: 25%">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault1"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label me-2" for="flexRadioDefault1">
+                  New
+                </label>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault2"
+                  id="flexRadioDefault2"
+                />
+                <label class="form-check-label me-2" for="flexRadioDefault2">
+                  In progress
+                </label>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault3"
+                  id="flexRadioDefault3"
+                />
+                <label class="form-check-label" for="flexRadioDefault3">
+                  Confirmed
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="total">All rows number:</p>
+        <p id="not-confirmed">Not confirmed rows number:</p>
+      </main>
+    </div>
+    <script>
+      let counter = 1;
+      let index =0
+      $(function () {
+        $('input[type="radio"]').click(function(){
+          const radioValue = $("input[name='flexRadioDefault3']:checked").val()
+          console.log(radioValue);
+          if(radioValue==='on') {
+           $("#in-1").attr('disabled',true)
+           $("#in-2").attr('disabled',true)
+          }else{
+            index++
+            const notConfirmed = document.getElementById('not-confirmed')
+            notConfirmed.innerText = `Not confirmed rows number: ${index}`
+          }
+        })
+        $("#delete").click(function () {
+          $(".rows").remove();
+        });
+        $('#clone').click(function(){
+          counter ++
+          const total = document.getElementById("total");
+          total.innerText = `All rows numbre: ${counter}`;
+          const inputValue1 = $('#in-1').val();
+          const inputValue2 = $('#in-2').val()
+          const inputValue3 = $('input[name="flexRadioDefault1"]:checked').val()
+          const inputValue4 = $('input[name="flexRadioDefault2"]:checked').val()
+          const inputValue5 = $('input[name="flexRadioDefault3"]:checked').val()
+          let res = elementFactory(1)
+          res.setValue(inputValue1,inputValue2,inputValue3,inputValue4,inputValue5)
+        });
+        
+      });
+      function elementFactory(flag){
+        const tableRow = document.createElement("tr");
+        $(tableRow).addClass("border t-row");
+        const tdata = document.createElement("td");
+        console.log(tdata);
+        tdata.style.width = "20%";
+        const delBtn = document.createElement("button");
+          delBtn.innerText = "Delete";
+          $(delBtn).addClass("px-4 py-2 me-2  bg-danger text-white border-0 rounded");
+          const cloneBtn = document.createElement("button");
+          cloneBtn.innerText = "Clone";
+          $(cloneBtn).addClass("px-4 py-2 ms-1 bg-primary text-white border-0 rounded");
+          $(tdata).append(delBtn, cloneBtn);
+          $(tableRow).append(tdata);
+          const firstTd = document.createElement("td");
+          firstTd.style.width = "20%";
+          const firstInput = document.createElement("input");
+          $(firstInput).addClass("input-1");
+          $(firstTd).append(firstInput);
+          $(tableRow).append(firstTd);
+          const secondTd = document.createElement("td");
+          secondTd.style.width = "20%";
+          const secondInput = document.createElement("input");
+          $(secondInput).addClass("input-2");
+          $(secondTd).append(secondInput);
+          $(tableRow).append(secondTd);
+          const thirdTd = document.createElement("td");
+          thirdTd.style.width = "25%";
+          const radio1 = document.createElement("input");
+          $(radio1).addClass("form-check-input1");
+          radio1.type = "radio"
+          radio1.name ="radioInput1"
+          const label1 = document.createElement("label");
+          $(label1).addClass("form-check-label ms-1 me-2");
+          label1.textContent = "New";
+          $(thirdTd).append(radio1, label1);
+          const radio2 = document.createElement("input");
+          $(radio2).addClass("form-check-input2 ms-1");
+          radio2.type = "radio";
+          radio2.name ="radioInput2"
+          const label2 = document.createElement("label");
+          $(label2).addClass("form-check-label ms-1 me-2 ");
+          label2.innerText = "In progress";
+          $(thirdTd).append(radio2, label2);
+          const radio3 = document.createElement("input");
+          $(radio3).addClass("form-check-input3 ms-1");
+          radio3.type = "radio";
+          radio3.name ="radioInput3"
+          const label3 = document.createElement("label");
+          $(label3).addClass("form-check-label ms-1 me-2 ");
+          label3.innerText = "Confirmed";
+          $(thirdTd).append(radio3, label3);
+          $(tableRow).append(thirdTd);
+          $(thirdTd).click(function(){
+           const radioValue = $("input[name='radioInput3']:checked").val()
+            if(radioValue==='on') {
+              $(firstInput).attr('disabled',true)
+              $(secondInput).attr('disabled',true)
+            }
+            else{
+              index++
+              const notConfirmed = document.getElementById('not-confirmed')
+              notConfirmed.innerText = `Not confirmed rows number: ${index}`
+            }
+          })
+          $(delBtn).click(function () {
+            $(tableRow).remove();
+            counter = counter - 1;
+            total.innerText = `All rows numbre: ${counter}`;
+            index--
+            const notConfirmed = document.getElementById('not-confirmed')
+            notConfirmed.innerText = `Not confirmed rows number: ${index}`
+
+          });
+          $(cloneBtn).click(function(){
+            counter++;
+            const total = document.getElementById("total");
+            total.innerText = `All rows numbre: ${counter}`;
+            elementFactory(3)
+          });
+          if(flag===1){
+            function setValue(value1,value2,value3,value4,value5){
+              firstInput.value = value1;
+              secondInput.value = value2;
+              if(value3==='on'){
+                $('.form-check-input1').attr('checked',true)
+                index++
+                const notConfirmed = document.getElementById('not-confirmed')
+                notConfirmed.innerText = `Not confirmed rows number: ${index}`
+              }
+              if(value4==='on'){
+                $('.form-check-input2').attr('checked',true)
+                index++
+                const notConfirmed = document.getElementById('not-confirmed')
+                notConfirmed.innerText = `Not confirmed rows number: ${index}`
+              }
+              if(value5==='on'){
+                $('.form-check-input3').attr('checked',true)
+                $(firstInput).attr('disabled',true)
+                $(secondInput).attr('disabled',true)
+              }
+
+            }
+            $('.rows').after(tableRow)
+          }
+          if(flag==2){
+            $(tableRow).addClass('tr-2')
+            $(".rows").before(tableRow);
+          }
+          
+          if(flag==3){
+            firstInput.value = $('.input-1').val()
+            secondInput.value = $('.input-2').val()
+            $(radio1).attr('id','r-i-1')
+            $(radio2).attr('id','r-i-2')
+            $(radio3).attr('id','r-i-3')
+            console.log(radio1);
+            const v1 = $("input[name='radioInput1']:checked").val()
+            console.log(v1);
+            const v2 = $("input[name='radioInput2']:checked").val()
+            console.log(v2);
+            const v3 = $("input[name='radioInput3']:checked").val()
+            console.log(v3);
+            if(v1==='on'){
+             $('#r-i-1').prop('checked',true)
+             index++
+             const notConfirmed = document.getElementById('not-confirmed')
+             notConfirmed.innerText = `Not confirmed rows number: ${index}`
+            }
+            if(v2==='on'){
+            $('#r-i-2').prop('checked',true)
+            index++
+            const notConfirmed = document.getElementById('not-confirmed')
+            notConfirmed.innerText = `Not confirmed rows number: ${index}`
+            }
+            if(v3==='on'){
+             $('#r-i-3').prop('checked',true)
+             $(firstInput).attr('disabled',true)
+             $(secondInput).attr('disabled',true)
+            }
+            $(tableRow).addClass('tr-3')
+            $(".tr-2").after(tableRow);
+          }
+          return {
+            setValue : setValue
+          }
+        }
+      function appendRow() {
+        counter ++
+        const total = document.getElementById("total");
+        total.innerText = `All rows numbre: ${counter}`;
+        elementFactory(2)
+      }
+      
+
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous">
+    </script>
+   
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

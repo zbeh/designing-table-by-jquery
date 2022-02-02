@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    font-family: sans-serif;
+}
+.container{
+    width: 80%;
+    margin: auto;
+}
+$background-color:#e0e0e0;
+$back-color-p:#bdbaba;
+.accordion{
+    margin-top: 8rem;
+   
+}
+h3{
+    background-color: $background-color;
+    border: 1px solid gray ;
+    padding: 1rem;
+    margin: 0;
+}
+p{
+    border: 1px solid gray;
+    margin: 0;
+    padding: 3rem;
+    display: none;
+}

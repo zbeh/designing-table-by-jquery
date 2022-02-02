@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./2.css">
+</head>
+<body>
+    <div class="container">
+        <div class='accordion'>
+            <div class="section-1">
+                <h3>Section 1</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, inventore. Quae accusamus dignissimos ad quidem omnis facilis, pariatur assumenda velit reiciendis dolores, qui numquam, in molestiae iusto repellat sint necessitatibus.</p>
+            </div>
+            <div class="section-2">
+                <h3>Section 2</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, inventore. Quae accusamus dignissimos ad quidem omnis facilis, pariatur assumenda velit reiciendis dolores, qui numquam, in molestiae iusto repellat sint necessitatibus.</p>
+            </div>
+            <div class="section-3">
+                <h3>Section 3</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, inventore. Quae accusamus dignissimos ad quidem omnis facilis, pariatur assumenda velit reiciendis dolores, qui numquam, in molestiae iusto repellat sint necessitatibus.</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+         $(".section-1").click(function(){
+            $('p').hide()
+            $('.section-1 p').slideDown('slow',function(){
+                $('.section-1 p').show()
+            });
+         })
+         $(".section-2").click(function(){
+            $('p').hide()
+            $('.section-2 p').slideDown('slow',function(){
+                $('.section-2 p').show()
+            });
+         })
+         $(".section-3").click(function(){
+            $('p').hide()
+            $('.section-3 p').slideDown('slow',function(){
+                $('.section-3 p').show()
+            });
+         })
+        });
+    </script>
+
+
+</body>
+</html>
